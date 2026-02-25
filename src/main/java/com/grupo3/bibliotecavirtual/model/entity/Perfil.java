@@ -1,25 +1,39 @@
 package com.grupo3.bibliotecavirtual.model.entity;
+
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.data.annotation.Id;
 import java.time.LocalDate;
 
 @Entity
 @Table(name = "perfil")
-@Getter @Setter
+@Getter
+@Setter
 public class Perfil {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(length = 500)
     private String bio;
 
     private LocalDate fechaNacimiento;
 
+    @Column(length = 20)
     private String telefono;
 
-
-    @OneToOne(mappedBy = "perfil") // Nombre del atributo en Usuario
+    // Relación bidireccional (lado inverso)
+    @OneToOne(mappedBy = "perfil")
     private User usuario;
+
+    // Constructor vacío obligatorio para JPA
+    public Perfil() {
+    }
+
+    public Perfil(String bio, LocalDate fechaNacimiento, String telefono) {
+        this.bio = bio;
+        this.fechaNacimiento = fechaNacimiento;
+        this.telefono = telefono;
+    }
 }
