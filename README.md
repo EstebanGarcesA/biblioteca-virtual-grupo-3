@@ -2,13 +2,13 @@
 
 Plataforma web para gestionar préstamos y administración de libros de una biblioteca virtual.
 
-# Introducción / Contexto
+## Introducción / Contexto
 
 - En muchas bibliotecas tradicionales, la gestión de préstamos, devoluciones y control de usuarios se realiza de manera manual o con sistemas poco eficientes. Esto puede generar errores en los registros, dificultades en el seguimiento de libros prestados y problemas en la administración de usuarios.
 - La digitalización de estos procesos permite mejorar la organización, reducir errores y facilitar el acceso a la información en tiempo real. Este proyecto es relevante desde el punto de vista académico y tecnológico, ya que permite aplicar conceptos de desarrollo backend con Spring Boot, autenticación, control de roles y gestión de bases de datos relacionales.
 - El dominio del proyecto se centra en la gestión bibliotecaria digital, específicamente en la administración de usuarios, libros y préstamos mediante una API REST desarrollada en Java con Spring Boot.
 
-# Objetivos
+## Objetivos
 
 **Objetivo General**
 Desarrollar un sistema backend para la gestión de una biblioteca virtual utilizando Spring Boot.
@@ -21,7 +21,7 @@ Desarrollar un sistema backend para la gestión de una biblioteca virtual utiliz
 - Gestionar la persistencia de datos mediante una base de datos relacional.
 - Aplicar buenas prácticas de arquitectura backend y validación de datos.
 
-# Alcance del Proyecto (Scope)
+## Alcance del Proyecto (Scope)
 
 **Qué se va a desarrollar:**
 - Módulo de registro de usuarios.
@@ -42,14 +42,14 @@ Desarrollar un sistema backend para la gestión de una biblioteca virtual utiliz
 - Panel administrativo avanzado con estadísticas gráficas.
 - Implementación de microservicios (será arquitectura monolítica).
 
-# Tecnologías y Herramientas (Tech Stack)
+## Tecnologías y Herramientas (Tech Stack)
 
 - **Backend**: Spring Boot 4.0.3, Java 21, Spring Data JPA, PostgreSQL
 - **Frontend**: React
 - **Base de datos**: PostgreSQL (entorno principal)
 - **Otras herramientas**: Git, GitHub, Postman
 
-# Integrantes del Equipo
+## Integrantes del Equipo
 
 | Nombre              | Rol principal           | Usuario GitHub     |
 |---------------------|-------------------------|--------------------|
@@ -59,12 +59,12 @@ Desarrollar un sistema backend para la gestión de una biblioteca virtual utiliz
 | Cristian Manjarrez  | Desarrollador           | @manjarrezcristian |
 | Lorena Mejía        | Desarrolladora          | @Lorenamejiag      |
 
-# Diagrama de Clases del Dominio (v1)
+## Diagrama de Clases del Dominio (v1)
 
 ![Diagrama de Dominio v1](docs/diagrama-dominio-v1.png)
 *Diagrama inicial del modelo de dominio – versión 1. Se actualizará en futuras entregas.*
 
-# Instrucciones de Instalación y Ejecución (para desarrolladores)
+## Instrucciones de Instalación y Ejecución (para desarrolladores)
 
 1. Clonar el repositorio
 
