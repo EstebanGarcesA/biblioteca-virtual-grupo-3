@@ -1,4 +1,4 @@
-package com.grupo3.bibliotecavirtual.model.entity;
+/* package com.grupo3.bibliotecavirtual.model.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -33,4 +33,80 @@ public class Autor extends BaseEntity {
     private LocalDateTime updatedAt;
 
 
+} */
+
+    package com.grupo3.bibliotecavirtual.model.entity;
+
+import com.grupo3.bibliotecavirtual.model.embeddable.NombreAutor;
+import com.grupo3.bibliotecavirtual.model.enums.EstadoAutor;
+import com.grupo3.bibliotecavirtual.model.enums.TipoDocumento;
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "autores")
+public class Autor {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Embedded
+    private NombreAutor nombre;
+
+    @Enumerated(EnumType.STRING)
+    private TipoDocumento tipoDocumento;
+
+    private String numeroDocumento;
+
+    @Enumerated(EnumType.STRING)
+    private EstadoAutor estado;
+
+    private String biografia;
+
+    public Autor() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public NombreAutor getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(NombreAutor nombre) {
+        this.nombre = nombre;
+    }
+
+    public TipoDocumento getTipoDocumento() {
+        return tipoDocumento;
+    }
+
+    public void setTipoDocumento(TipoDocumento tipoDocumento) {
+        this.tipoDocumento = tipoDocumento;
+    }
+
+    public String getNumeroDocumento() {
+        return numeroDocumento;
+    }
+
+    public void setNumeroDocumento(String numeroDocumento) {
+        this.numeroDocumento = numeroDocumento;
+    }
+
+    public EstadoAutor getEstado() {
+        return estado;
+    }
+
+    public void setEstado(EstadoAutor estado) {
+        this.estado = estado;
+    }
+
+    public String getBiografia() {
+        return biografia;
+    }
+
+    public void setBiografia(String biografia) {
+        this.biografia = biografia;
+    }
 }
