@@ -1,7 +1,11 @@
 package com.grupo3.bibliotecavirtual.service;
 
 import com.grupo3.bibliotecavirtual.model.entity.Autor;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
 import java.util.List;
+
 
 public interface AutorService {
 
@@ -13,4 +17,3 @@ public interface AutorService {
 
     void eliminarAutor(Long id);
 }
-``

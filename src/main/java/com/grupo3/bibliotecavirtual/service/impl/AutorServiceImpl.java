@@ -1,8 +1,8 @@
-package com.grupo3.bibliotecavirtual.service;
+package com.grupo3.bibliotecavirtual.service.impl;
 
 import com.grupo3.bibliotecavirtual.model.entity.Autor;
-import com.grupo3.bibliotecavirtual.model.enums.EstadoAutor;
 import com.grupo3.bibliotecavirtual.repository.AutorRepository;
+import com.grupo3.bibliotecavirtual.service.AutorService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,10 +16,10 @@ public class AutorServiceImpl implements AutorService {
         this.autorRepository = autorRepository;
     }
 
+
     @Override
     public Autor guardarAutor(Autor autor) {
-        autor.setEstado(EstadoAutor.ACTIVO);
-        return autorRepository.save(autor);
+        return null;
     }
 
     @Override
@@ -36,7 +36,6 @@ public class AutorServiceImpl implements AutorService {
     public void eliminarAutor(Long id) {
         Autor autor = buscarPorId(id);
         if (autor != null) {
-            autor.setEstado(EstadoAutor.INACTIVO);
             autorRepository.save(autor);
         }
     }

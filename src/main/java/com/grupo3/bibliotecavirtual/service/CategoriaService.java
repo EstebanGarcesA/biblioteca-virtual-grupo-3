@@ -1,7 +1,10 @@
 package com.grupo3.bibliotecavirtual.service;
 
 import com.grupo3.bibliotecavirtual.model.entity.Categoria;
+
+
 import java.util.List;
+
 
 public interface CategoriaService {
 

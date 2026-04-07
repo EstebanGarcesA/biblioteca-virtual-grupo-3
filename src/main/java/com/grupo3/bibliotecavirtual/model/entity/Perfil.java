@@ -1,5 +1,6 @@
 package com.grupo3.bibliotecavirtual.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import java.util.List;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -19,7 +20,8 @@ public class Perfil extends BaseEntity {
   private String direccion;
   private String telefono;
 
-    @OneToOne(mappedBy = "perfil") // Nombre del atributo en Usuario
+    @OneToOne(mappedBy = "perfil")
+    @JsonBackReference
     private Usuario usuario;
 
     @OneToMany(mappedBy = "perfil")

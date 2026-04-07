@@ -39,7 +39,7 @@ public class Autor extends BaseEntity {
 
 import com.grupo3.bibliotecavirtual.model.embeddable.NombreAutor;
 import com.grupo3.bibliotecavirtual.model.enums.EstadoAutor;
-import com.grupo3.bibliotecavirtual.model.enums.TipoDocumento;
+//import com.grupo3.bibliotecavirtual.model.enums.TipoDocumento;
 import jakarta.persistence.*;
 
 @Entity
@@ -53,13 +53,13 @@ public class Autor {
     @Embedded
     private NombreAutor nombre;
 
-    @Enumerated(EnumType.STRING)
+    /*@Enumerated(EnumType.STRING)
     private TipoDocumento tipoDocumento;
 
-    private String numeroDocumento;
+    private String numeroDocumento;*/
 
-    @Enumerated(EnumType.STRING)
-    private EstadoAutor estado;
+//    @Enumerated(EnumType.STRING)
+//    private EstadoAutor estado;
 
     private String biografia;
 
@@ -78,29 +78,29 @@ public class Autor {
         this.nombre = nombre;
     }
 
-    public TipoDocumento getTipoDocumento() {
-        return tipoDocumento;
-    }
+//    public TipoDocumento getTipoDocumento() {
+//        return tipoDocumento;
+//    }
+//
+//    public void setTipoDocumento(TipoDocumento tipoDocumento) {
+//        this.tipoDocumento = tipoDocumento;
+//    }
+//
+//    public String getNumeroDocumento() {
+//        return numeroDocumento;
+//    }
+//
+//    public void setNumeroDocumento(String numeroDocumento) {
+//        this.numeroDocumento = numeroDocumento;
+//    }
 
-    public void setTipoDocumento(TipoDocumento tipoDocumento) {
-        this.tipoDocumento = tipoDocumento;
-    }
-
-    public String getNumeroDocumento() {
-        return numeroDocumento;
-    }
-
-    public void setNumeroDocumento(String numeroDocumento) {
-        this.numeroDocumento = numeroDocumento;
-    }
-
-    public EstadoAutor getEstado() {
-        return estado;
-    }
-
-    public void setEstado(EstadoAutor estado) {
-        this.estado = estado;
-    }
+//    public EstadoAutor getEstado() {
+//        return estado;
+//    }
+//
+//    public void setEstado(EstadoAutor estado) {
+//        this.estado = estado;
+//    }
 
     public String getBiografia() {
         return biografia;
