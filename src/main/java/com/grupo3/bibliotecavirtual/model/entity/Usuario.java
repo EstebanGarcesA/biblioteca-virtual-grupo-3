@@ -1,5 +1,5 @@
 package com.grupo3.bibliotecavirtual.model.entity;
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -20,9 +20,9 @@ public class Usuario extends BaseEntity {
     @JsonManagedReference
     private Perfil perfil;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "rol_id")
-    @JsonBackReference
+    @JsonIgnoreProperties({ "usuarios" })
     private Rol rol;
 
 }

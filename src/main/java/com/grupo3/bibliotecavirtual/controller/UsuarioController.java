@@ -1,8 +1,10 @@
 package com.grupo3.bibliotecavirtual.controller;
 
 import com.grupo3.bibliotecavirtual.model.dto.UsuarioDTO;
+import com.grupo3.bibliotecavirtual.model.entity.Perfil;
 import com.grupo3.bibliotecavirtual.model.entity.Rol;
 import com.grupo3.bibliotecavirtual.model.entity.Usuario;
+import com.grupo3.bibliotecavirtual.service.PerfilService;
 import com.grupo3.bibliotecavirtual.service.RolService;
 import com.grupo3.bibliotecavirtual.service.UsuarioService;
 import org.springframework.http.HttpStatus;
@@ -17,10 +19,12 @@ public class UsuarioController {
 
     private final UsuarioService service;
     private final RolService rolService;
+    private final PerfilService perfilService;
 
-    public UsuarioController(UsuarioService service, RolService rolService) {
+    public UsuarioController(UsuarioService service, RolService rolService, PerfilService perfilService) {
         this.service = service;
         this.rolService = rolService;
+        this.perfilService = perfilService;
     }
 
     @GetMapping
@@ -47,6 +51,10 @@ public class UsuarioController {
         if (dto.getRolId() != null) {
             Rol rol = rolService.buscarPorId(dto.getRolId());
             usuario.setRol(rol);
+        }
+        if (dto.getPerfilId() != null) {
+            Perfil perfil = perfilService.buscarPorId(dto.getPerfilId());
+            usuario.setPerfil(perfil);
         }
 
         return ResponseEntity.status(HttpStatus.CREATED).body(service.guardar(usuario));
