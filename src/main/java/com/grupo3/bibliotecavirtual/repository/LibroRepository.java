@@ -7,4 +7,5 @@ import com.grupo3.bibliotecavirtual.model.entity.Libro;
 
 @Repository
 public interface LibroRepository extends JpaRepository<Libro, Long> {
+     Libro findByGoogleId(String googleId);
 }

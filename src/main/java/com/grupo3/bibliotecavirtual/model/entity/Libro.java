@@ -12,11 +12,19 @@ import java.time.LocalDate;
 @Setter
 public class Libro extends BaseEntity {
 
-
     private String nombreLibro;
 
     private int cantidadPaginas;
 
+    @Column(unique = true)
+    private String googleId;
+
+    private String thumbnail;
+
+    @Column(length = 2000)
+    private String descripcion;
+
+    private String autoresTexto;
 
     // Muchos libros a un autor
     @ManyToOne
@@ -32,4 +40,5 @@ public class Libro extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "estado_id")
     private Estado estado;
+
 }

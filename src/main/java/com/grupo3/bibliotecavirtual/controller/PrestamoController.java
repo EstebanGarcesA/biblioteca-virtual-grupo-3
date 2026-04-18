@@ -5,11 +5,13 @@ import com.grupo3.bibliotecavirtual.service.PrestamoService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import com.grupo3.bibliotecavirtual.model.dto.PrestamoRequest;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/prestamos")
+@CrossOrigin(origins = "http://localhost:5173")
 public class PrestamoController {
 
     private final PrestamoService service;
@@ -29,8 +31,9 @@ public class PrestamoController {
     }
 
     @PostMapping
-    public ResponseEntity<Prestamo> guardar(@RequestBody Prestamo prestamo) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(service.guardar(prestamo));
+    public ResponseEntity<Prestamo> guardar(@RequestBody PrestamoRequest request) {
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(service.crearPrestamoDesdeGoogle(request));
     }
 
     @PutMapping("/{id}")
