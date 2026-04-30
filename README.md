@@ -2,13 +2,13 @@
 
 Plataforma web para gestionar préstamos y administración de libros de una biblioteca virtual.
 
-## Introducción / Contexto
+# Introducción / Contexto
 
 - En muchas bibliotecas tradicionales, la gestión de préstamos, devoluciones y control de usuarios se realiza de manera manual o con sistemas poco eficientes. Esto puede generar errores en los registros, dificultades en el seguimiento de libros prestados y problemas en la administración de usuarios.
 - La digitalización de estos procesos permite mejorar la organización, reducir errores y facilitar el acceso a la información en tiempo real. Este proyecto es relevante desde el punto de vista académico y tecnológico, ya que permite aplicar conceptos de desarrollo backend con Spring Boot, autenticación, control de roles y gestión de bases de datos relacionales.
 - El dominio del proyecto se centra en la gestión bibliotecaria digital, específicamente en la administración de usuarios, libros y préstamos mediante una API REST desarrollada en Java con Spring Boot.
 
-## Objetivos
+# Objetivos
 
 **Objetivo General**
 Desarrollar un sistema backend para la gestión de una biblioteca virtual utilizando Spring Boot.
@@ -21,7 +21,7 @@ Desarrollar un sistema backend para la gestión de una biblioteca virtual utiliz
 - Gestionar la persistencia de datos mediante una base de datos relacional.
 - Aplicar buenas prácticas de arquitectura backend y validación de datos.
 
-## Alcance del Proyecto (Scope)
+# Alcance del Proyecto (Scope)
 
 **Qué se va a desarrollar:**
 - Módulo de registro de usuarios.
@@ -42,14 +42,14 @@ Desarrollar un sistema backend para la gestión de una biblioteca virtual utiliz
 - Panel administrativo avanzado con estadísticas gráficas.
 - Implementación de microservicios (será arquitectura monolítica).
 
-## Tecnologías y Herramientas (Tech Stack)
+# Tecnologías y Herramientas (Tech Stack)
 
 - **Backend**: Spring Boot 4.0.3, Java 21, Spring Data JPA, PostgreSQL
 - **Frontend**: React
 - **Base de datos**: PostgreSQL (entorno principal)
 - **Otras herramientas**: Git, GitHub, Postman
 
-## Integrantes del Equipo
+# Integrantes del Equipo
 
 | Nombre              | Rol principal           | Usuario GitHub     |
 |---------------------|-------------------------|--------------------|
@@ -59,12 +59,12 @@ Desarrollar un sistema backend para la gestión de una biblioteca virtual utiliz
 | Cristian Manjarrez  | Desarrollador           | @manjarrezcristian |
 | Lorena Mejía        | Desarrolladora          | @Lorenamejiag      |
 
-## Diagrama de Clases del Dominio (v1)
+# Diagrama de Clases del Dominio (v1)
 
 ![Diagrama de Dominio v1](docs/diagrama-dominio-v1.png)
 *Diagrama inicial del modelo de dominio – versión 1. Se actualizará en futuras entregas.*
 
-## Instrucciones de Instalación y Ejecución (para desarrolladores)
+# Instrucciones de Instalación y Ejecución (para desarrolladores)
 
 1. Clonar el repositorio
 
@@ -78,28 +78,21 @@ git clone https://github.com/EstebanGarcesA/biblioteca-virtual-grupo-3.git
 cd biblioteca-virtual-grupo-3
 ```
 
-3. Configurar base de datos en `src/main/resources/application-dev.properties`
+3. Crear el archivo `.env` en la raíz del proyecto (junto a `pom.xml`)
 
-Ejemplo con H2 (para pruebas rápidas):
+   Las credenciales y la URL de la base de datos **no** van en el repositorio: cada desarrollador debe crear su propio `.env` con los datos de **su** instancia de PostgreSQL. El archivo `.env` ya está listado en `.gitignore` para no subir secretos por error.
 
-```properties
-spring.datasource.url=jdbc:h2:mem:testdb
-spring.datasource.driverClassName=org.h2.Driver
-spring.datasource.username=sa
-spring.datasource.password=
-spring.jpa.database-platform=org.hibernate.dialect.H2Dialect
-spring.h2.console.enabled=true
-spring.jpa.hibernate.ddl-auto=update
-```
+   El perfil de desarrollo (`application-dev.properties`) importa ese archivo y lee las variables `DB_URL`, `DB_USERNAME` y `DB_PASSWORD`.
 
-Ejemplo en PostgreSQL:
+   Ejemplo de `.env` (ajusta host, puerto, nombre de base de datos, usuario y contraseña a tu entorno):
 
-```properties
-spring.datasource.url=jdbc:postgresql://localhost:5432/biblioteca_virtual
-spring.datasource.username=tu_usuario
-spring.datasource.password=tu_contraseña
-spring.jpa.hibernate.ddl-auto=update
-```
+   ```properties
+   DB_URL=jdbc:postgresql://localhost:5432/biblioteca_virtual
+   DB_USERNAME=tu_usuario
+   DB_PASSWORD=tu_contraseña
+   ```
+
+   Asegúrate de que PostgreSQL esté en ejecución y de que exista la base de datos indicada en la URL (por ejemplo `biblioteca_virtual`), o créala antes de levantar la aplicación.
 
 4. Ejecutar la aplicación
 
