@@ -5,8 +5,11 @@ import com.grupo3.bibliotecavirtual.repository.PrestamoRepository;
 import com.grupo3.bibliotecavirtual.service.PrestamoService;
 import org.springframework.stereotype.Service;
 import com.grupo3.bibliotecavirtual.model.dto.PrestamoRequest;
+import com.grupo3.bibliotecavirtual.model.dto.LibroDTO;
 import com.grupo3.bibliotecavirtual.model.entity.Libro;
+import com.grupo3.bibliotecavirtual.model.entity.Perfil;
 import com.grupo3.bibliotecavirtual.repository.LibroRepository;
+import com.grupo3.bibliotecavirtual.repository.PerfilRepository;
 import com.grupo3.bibliotecavirtual.model.enums.EstadoPrestamo;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +28,9 @@ public class PrestamoServiceImpl implements PrestamoService {
 
     @Autowired
     private LibroRepository libroRepository;
+
+    @Autowired
+private PerfilRepository perfilRepository;
 
     @Override
     public List<Prestamo> listar() {
@@ -69,25 +75,78 @@ public class PrestamoServiceImpl implements PrestamoService {
 
 @Override
 public Prestamo crearPrestamoDesdeGoogle(PrestamoRequest request) {
+    if (request.getLibro() == null) {
+        throw new RuntimeException("El libro es requerido para crear un préstamo");
+    }
 
-    Libro libro = libroRepository.findByGoogleId(request.getGoogleId());
+    // Usar el libro del DTO en lugar de campos individuales
+    Libro libro = convertirDTOaEntidad(request.getLibro());
 
-    if (libro == null) {
-        libro = new Libro();
-        libro.setGoogleId(request.getGoogleId());
-        libro.setNombreLibro(request.getNombreLibro());
-        libro.setAutoresTexto(request.getAutores());
-        libro.setThumbnail(request.getThumbnail());
-        libro.setDescripcion(request.getDescripcion());
-
+    // Buscar si ya existe un libro con el mismo googleId
+    if (libro.getGoogleId() != null) {
+        Libro libroExistente = libroRepository.findByGoogleId(libro.getGoogleId());
+        if (libroExistente != null) {
+            libro = libroExistente;
+        } else {
+            libro = libroRepository.save(libro);
+        }
+    } else {
         libro = libroRepository.save(libro);
     }
 
+    Perfil perfil = perfilRepository.findById(request.getPerfilId())
+            .orElseThrow(() -> new RuntimeException("Perfil no encontrado con ID: " + request.getPerfilId()));
+
     Prestamo prestamo = new Prestamo();
     prestamo.setLibro(libro);
+    prestamo.setPerfil(perfil);
     prestamo.setFechaPrestamo(LocalDate.now());
+    prestamo.setFechaDevolucion(request.getFechaDevolucion());
     prestamo.setEstado(EstadoPrestamo.Prestado);
 
+    return repository.save(prestamo);
+}
+
+private Libro convertirDTOaEntidad(com.grupo3.bibliotecavirtual.model.dto.LibroDTO dto) {
+    if (dto == null) return null;
+
+    Libro libro = new Libro();
+    libro.setId(dto.getId());
+    libro.setNombreLibro(dto.getNombreLibro());
+    libro.setCantidadPaginas(dto.getCantidadPaginas());
+    libro.setGoogleId(dto.getGoogleId());
+    libro.setThumbnail(dto.getThumbnail());
+    libro.setDescripcion(dto.getDescripcion());
+    libro.setAutoresTexto(dto.getAutoresTexto());
+
+    // Validar y asignar objetos relacionados solo si existen
+    if (dto.getAutor() != null && dto.getAutor().getId() != null) {
+        libro.setAutor(dto.getAutor());
+    }
+    if (dto.getCategoria() != null && dto.getCategoria().getId() != null) {
+        libro.setCategoria(dto.getCategoria());
+    }
+    if (dto.getEstado() != null && dto.getEstado().getId() != null) {
+        libro.setEstado(dto.getEstado());
+    }
+
+    return libro;
+}
+
+@Override
+public List<Prestamo> obtenerPorPerfil(Long perfilId) {
+    return repository.findByPerfilId(perfilId);
+}
+
+@Override
+public Prestamo asignarPerfil(Long prestamoId, Long perfilId) {
+    Prestamo prestamo = repository.findById(prestamoId)
+            .orElseThrow(() -> new RuntimeException("Prestamo no encontrado con id: " + prestamoId));
+    
+    Perfil perfil = perfilRepository.findById(perfilId)
+            .orElseThrow(() -> new RuntimeException("Perfil no encontrado con id: " + perfilId));
+    
+    prestamo.setPerfil(perfil);
     return repository.save(prestamo);
 }
 

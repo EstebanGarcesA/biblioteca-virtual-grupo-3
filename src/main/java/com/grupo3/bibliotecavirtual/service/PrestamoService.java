@@ -13,4 +13,6 @@ public interface PrestamoService {
     void eliminar(Long id);
     Prestamo buscarPorId(Long id);
     Prestamo crearPrestamoDesdeGoogle(PrestamoRequest request);
+    List<Prestamo> obtenerPorPerfil(Long perfilId);
+    Prestamo asignarPerfil(Long prestamoId, Long perfilId);
 }

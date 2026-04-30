@@ -1,7 +1,9 @@
 package com.grupo3.bibliotecavirtual.controller;
 
 import com.grupo3.bibliotecavirtual.model.entity.Perfil;
+import com.grupo3.bibliotecavirtual.model.entity.Prestamo;
 import com.grupo3.bibliotecavirtual.service.PerfilService;
+import com.grupo3.bibliotecavirtual.service.PrestamoService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -10,12 +12,15 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/perfiles")
+@CrossOrigin(origins = "http://localhost:5173")
 public class PerfilController {
 
     private final PerfilService service;
+    private final PrestamoService prestamoService;
 
-    public PerfilController(PerfilService service) {
+    public PerfilController(PerfilService service, PrestamoService prestamoService) {
         this.service = service;
+        this.prestamoService = prestamoService;
     }
 
     @GetMapping
@@ -26,6 +31,11 @@ public class PerfilController {
     @GetMapping("/{id}")
     public ResponseEntity<Perfil> buscarPorId(@PathVariable Long id) {
         return ResponseEntity.ok(service.buscarPorId(id));
+    }
+
+    @GetMapping("/{id}/libros-prestados")
+    public ResponseEntity<List<Prestamo>> obtenerLibrosPrestados(@PathVariable Long id) {
+        return ResponseEntity.ok(prestamoService.obtenerPorPerfil(id));
     }
 
     @PostMapping

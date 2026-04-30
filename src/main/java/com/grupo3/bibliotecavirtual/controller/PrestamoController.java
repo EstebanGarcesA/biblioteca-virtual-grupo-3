@@ -25,6 +25,15 @@ public class PrestamoController {
         return ResponseEntity.ok(service.listar());
     }
 
+    @GetMapping("/perfil/{perfilId}")
+    @CrossOrigin(origins = "http://localhost:5173")
+    public ResponseEntity<List<Prestamo>> obtenerPorPerfil(@PathVariable Long perfilId) {
+        System.out.println("Obteniendo préstamos para perfilId: " + perfilId);
+        List<Prestamo> prestamos = service.obtenerPorPerfil(perfilId);
+        System.out.println("Préstamos encontrados: " + prestamos.size());
+        return ResponseEntity.ok(prestamos);
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<Prestamo> buscarPorId(@PathVariable Long id) {
         return ResponseEntity.ok(service.buscarPorId(id));
@@ -36,9 +45,25 @@ public class PrestamoController {
                 .body(service.crearPrestamoDesdeGoogle(request));
     }
 
+    @PostMapping("/simple")
+    public ResponseEntity<Prestamo> crearPrestamoSimple(@RequestBody Prestamo prestamo) {
+        System.out.println("Creando préstamo simple con libro_id: " + 
+            (prestamo.getLibro() != null ? prestamo.getLibro().getId() : "NULL") +
+            " y perfil_id: " + 
+            (prestamo.getPerfil() != null ? prestamo.getPerfil().getId() : "NULL"));
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(service.guardar(prestamo));
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<Prestamo> actualizar(@PathVariable Long id, @RequestBody Prestamo prestamo) {
         return ResponseEntity.ok(service.actualizar(id, prestamo));
+    }
+
+    @PutMapping("/{id}/perfil/{perfilId}")
+    public ResponseEntity<Prestamo> asignarPerfilAPrestamo(@PathVariable Long id, @PathVariable Long perfilId) {
+        System.out.println("Asignando perfil " + perfilId + " al préstamo " + id);
+        return ResponseEntity.ok(service.asignarPerfil(id, perfilId));
     }
 
     @DeleteMapping("/{id}")
