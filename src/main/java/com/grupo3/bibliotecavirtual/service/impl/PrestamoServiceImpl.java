@@ -5,11 +5,13 @@ import com.grupo3.bibliotecavirtual.repository.PrestamoRepository;
 import com.grupo3.bibliotecavirtual.service.PrestamoService;
 import org.springframework.stereotype.Service;
 import com.grupo3.bibliotecavirtual.model.dto.PrestamoRequest;
-import com.grupo3.bibliotecavirtual.model.dto.LibroDTO;
 import com.grupo3.bibliotecavirtual.model.entity.Libro;
 import com.grupo3.bibliotecavirtual.model.entity.Perfil;
 import com.grupo3.bibliotecavirtual.repository.LibroRepository;
 import com.grupo3.bibliotecavirtual.repository.PerfilRepository;
+import com.grupo3.bibliotecavirtual.repository.AutorRepository;
+import com.grupo3.bibliotecavirtual.repository.CategoriaRepository;
+import com.grupo3.bibliotecavirtual.repository.EstadoRepository;
 import com.grupo3.bibliotecavirtual.model.enums.EstadoPrestamo;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +33,15 @@ public class PrestamoServiceImpl implements PrestamoService {
 
     @Autowired
 private PerfilRepository perfilRepository;
+
+    @Autowired
+    private AutorRepository autorRepository;
+
+    @Autowired
+    private CategoriaRepository categoriaRepository;
+
+    @Autowired
+    private EstadoRepository estadoRepository;
 
     @Override
     public List<Prestamo> listar() {
@@ -119,15 +130,15 @@ private Libro convertirDTOaEntidad(com.grupo3.bibliotecavirtual.model.dto.LibroD
     libro.setDescripcion(dto.getDescripcion());
     libro.setAutoresTexto(dto.getAutoresTexto());
 
-    // Validar y asignar objetos relacionados solo si existen
+    // Resolver relaciones desde BD para evitar entidades transientes
     if (dto.getAutor() != null && dto.getAutor().getId() != null) {
-        libro.setAutor(dto.getAutor());
+        libro.setAutor(autorRepository.findById(dto.getAutor().getId()).orElse(null));
     }
     if (dto.getCategoria() != null && dto.getCategoria().getId() != null) {
-        libro.setCategoria(dto.getCategoria());
+        libro.setCategoria(categoriaRepository.findById(dto.getCategoria().getId()).orElse(null));
     }
     if (dto.getEstado() != null && dto.getEstado().getId() != null) {
-        libro.setEstado(dto.getEstado());
+        libro.setEstado(estadoRepository.findById(dto.getEstado().getId()).orElse(null));
     }
 
     return libro;
