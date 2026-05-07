@@ -5,7 +5,6 @@ import com.grupo3.bibliotecavirtual.repository.PrestamoRepository;
 import com.grupo3.bibliotecavirtual.service.PrestamoService;
 import org.springframework.stereotype.Service;
 import com.grupo3.bibliotecavirtual.model.dto.PrestamoRequest;
-import com.grupo3.bibliotecavirtual.model.dto.LibroDTO;
 import com.grupo3.bibliotecavirtual.model.entity.Libro;
 import com.grupo3.bibliotecavirtual.model.entity.Perfil;
 import com.grupo3.bibliotecavirtual.repository.LibroRepository;
@@ -131,15 +130,6 @@ private Libro convertirDTOaEntidad(com.grupo3.bibliotecavirtual.model.dto.LibroD
     libro.setDescripcion(dto.getDescripcion());
     libro.setAutoresTexto(dto.getAutoresTexto());
 
-    // Validar y asignar objetos relacionados solo si existen
-    if (dto.getAutor() != null && dto.getAutor().getId() != null) {
-        libro.setAutor(dto.getAutor());
-    }
-    if (dto.getCategoria() != null && dto.getCategoria().getId() != null) {
-        libro.setCategoria(dto.getCategoria());
-    }
-    if (dto.getEstado() != null && dto.getEstado().getId() != null) {
-        libro.setEstado(dto.getEstado());
     // Resolver relaciones desde BD para evitar entidades transientes
     if (dto.getAutor() != null && dto.getAutor().getId() != null) {
         libro.setAutor(autorRepository.findById(dto.getAutor().getId()).orElse(null));
