@@ -1,5 +1,7 @@
 package com.grupo3.bibliotecavirtual.service.impl;
 
+import com.grupo3.bibliotecavirtual.model.dto.CategoriaRequestDTO;
+import com.grupo3.bibliotecavirtual.model.dto.CategoriaResponseDTO;
 import com.grupo3.bibliotecavirtual.model.entity.Categoria;
 import com.grupo3.bibliotecavirtual.repository.CategoriaRepository;
 import com.grupo3.bibliotecavirtual.service.CategoriaService;
@@ -17,6 +19,42 @@ public class CategoriaServiceImpl implements CategoriaService {
         this.repository = repository;
     }
 
+    // CONVERTIR ENTIDAD → DTO
+    public CategoriaResponseDTO convertirADTO(Categoria categoria) {
+        CategoriaResponseDTO dto = new CategoriaResponseDTO();
+        dto.setNombre(categoria.getNombre());
+        dto.setDescripcion(categoria.getDescripcion());
+        return dto;
+    }
+
+    // CONVERTIR DTO → ENTIDAD
+    public Categoria convertirAEntidad(CategoriaRequestDTO dto) {
+        Categoria categoria = new Categoria();
+        categoria.setNombre(dto.getNombre());
+        categoria.setDescripcion(dto.getDescripcion());
+        return categoria;
+    }
+
+    public List<CategoriaResponseDTO> listarDTO() {
+        return repository.findAll()
+                .stream()
+                .map(this::convertirADTO)
+                .toList();
+    }
+
+    public CategoriaResponseDTO guardarDTO(CategoriaRequestDTO dto) {
+        Categoria categoria = convertirAEntidad(dto);
+
+        categoria.setFechaRegistro(LocalDateTime.now());
+
+        if (categoria.getAuditoria() != null) {
+            categoria.getAuditoria().setFechaCreacion(LocalDateTime.now());
+        }
+
+        Categoria guardada = repository.save(categoria);
+        return convertirADTO(guardada);
+    }
+
     @Override
     public List<Categoria> listar() {
         return repository.findAll();
@@ -25,7 +63,7 @@ public class CategoriaServiceImpl implements CategoriaService {
     @Override
     public Categoria guardar(Categoria categoria) {
 
-        //  SOLUCIÓN AQUÍ
+        // SOLUCIÓN AQUÍ
         categoria.setFechaRegistro(LocalDateTime.now());
 
         // si usamos git initauditoría
