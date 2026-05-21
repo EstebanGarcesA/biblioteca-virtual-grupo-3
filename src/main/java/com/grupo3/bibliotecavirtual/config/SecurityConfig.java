@@ -25,7 +25,18 @@ public class SecurityConfig {
                         ).permitAll()
                         .requestMatchers(HttpMethod.POST,
                                 "/usuarios",
-                                "/perfiles/**"
+                                "/api/libros",
+                                "/api/libros/**",
+                                "/categorias",
+                                "/categorias/**",
+                                "/autores",
+                                "/autores/**",
+                                "/api/estados",
+                                "/api/estados/**",
+                                "/roles",
+                                "/roles/**",
+                                "/perfiles/**",
+                                "/prestamos/**"
                         ).permitAll()
                         .requestMatchers(HttpMethod.GET, "/usuarios").permitAll()
 
