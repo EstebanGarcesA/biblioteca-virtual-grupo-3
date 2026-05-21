@@ -25,7 +25,7 @@ public class SecurityConfig {
                         ).permitAll()
                         .requestMatchers(HttpMethod.POST,
                                 "/usuarios",
-                                "/perfiles/"
+                                "/perfiles/**"
                         ).permitAll()
                         .requestMatchers(HttpMethod.GET, "/usuarios").permitAll()
 
