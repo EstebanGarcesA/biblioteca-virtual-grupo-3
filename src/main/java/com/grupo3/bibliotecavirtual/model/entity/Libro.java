@@ -1,5 +1,6 @@
 package com.grupo3.bibliotecavirtual.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -26,19 +27,19 @@ public class Libro extends BaseEntity {
 
     private String autoresTexto;
 
-    // Muchos libros a un autor
     @ManyToOne
     @JoinColumn(name = "autor_id")
+    @JsonIgnoreProperties("libros") // el nombre del campo en Autor que apunta a List<Libro>
     private Autor autor;
 
-    // Muchos libros a una categoria
     @ManyToOne
     @JoinColumn(name = "categoria_id")
+    @JsonIgnoreProperties("libros")
     private Categoria categoria;
 
-    // Muchos libros a un estado
     @ManyToOne
     @JoinColumn(name = "estado_id")
+    @JsonIgnoreProperties("libros")
     private Estado estado;
 
 }
